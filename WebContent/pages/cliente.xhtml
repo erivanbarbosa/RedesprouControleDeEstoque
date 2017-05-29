@@ -12,14 +12,18 @@
 	</ui:define>
 
 	<ui:define name="conteudo" >
-		<p:dataTable emptyMessage="Nenhum cliente encontrado!">
-			<p:column headerText="Código">
+		<p:dataTable emptyMessage="Nenhum cliente encontrado!" value="#{MBCliente.listaDeClientes}"
+		var="item">
+			<p:column headerText="Código" >
+			<h:outputText value="#{item.codigo}" />
 			</p:column>
 			
 			<p:column headerText="Nome">
+			<h:outputText value="#{item.razaoSocial}" />
 			</p:column>
 			
 			<p:column headerText="cnpj">
+			<h:outputText value="#{item.cnpj}" />
 			</p:column>
 		</p:dataTable>
 	</ui:define>
