@@ -105,6 +105,35 @@ public class ClienteDAO {
 		return lista;
 	}
 	
+	public ArrayList<Cliente> listarPorDescricao(Cliente cliente ) throws SQLException
+	{
+		StringBuilder sql = new StringBuilder();
+		sql.append("SELECT codigo, razao_social, cnpj " );
+		sql.append("FROM cliente ");
+		sql.append("WHERE razao_social LIKE ? ");
+		sql.append("ORDER BY codigo ASC ");
+		
+		Connection conexao = ConexaoFactory.conectar();
+		PreparedStatement comando = conexao.prepareStatement( sql.toString() );
+		comando.setString(1, "%" + cliente.getRazaoSocial() + "%");
+		
+		ResultSet resultado = comando.executeQuery();
+		ArrayList<Cliente> lista = new ArrayList<Cliente>();
+		
+		while( resultado.next() )
+		{
+			Cliente c1 = new Cliente();
+			c1.setCodigo(resultado.getLong("codigo"));
+			c1.setRazaoSocial(resultado.getString("razao_social"));
+			c1.setCnpj(resultado.getString("cnpj"));
+			
+			lista.add(c1);
+		}
+		
+		return lista;
+		
+	}
+	
 	public static void main(String[] args )
 	{
 		/*
@@ -128,9 +157,26 @@ public class ClienteDAO {
 			System.out.println("Nao deu certo");
 		}*/
 		
+		/*
 		ClienteDAO cDAO = new ClienteDAO();
 		try {
 			ArrayList<Cliente> lista = cDAO.listar();
+			
+			for (Cliente c : lista )
+			{
+				System.out.println(c);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("Erro");
+		}*/
+		
+		Cliente c1 = new Cliente();
+		c1.setRazaoSocial("Arcon");
+		
+		ClienteDAO cDAO = new ClienteDAO();
+		try {
+			ArrayList<Cliente> lista = cDAO.listarPorDescricao(c1);
 			
 			for (Cliente c : lista )
 			{
