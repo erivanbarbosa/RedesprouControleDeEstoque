@@ -2,106 +2,102 @@ package br.com.redesprou.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import br.com.redesprou.domain.Cliente;
 import br.com.redesprou.factory.ConexaoFactory;
 
 public class ClienteDAO {
-	public void salvar(Cliente cliente) throws SQLException
-	{
+	public void salvar(Cliente cliente) throws SQLException {
 		StringBuilder sql = new StringBuilder();
 		sql.append("INSERT INTO cliente ");
 		sql.append("(razao_social, cnpj) ");
 		sql.append("VALUES (?, ?)");
-		
+
 		Connection conexao = ConexaoFactory.conectar();
-		
-		PreparedStatement comando = conexao.prepareStatement( sql.toString() );
+
+		PreparedStatement comando = conexao.prepareStatement(sql.toString());
 		comando.setString(1, cliente.getRazaoSocial());
 		comando.setString(2, cliente.getCnpj());
-		
+
 		comando.executeUpdate();
 	}
-	
-	public void excluir(Cliente cliente) throws SQLException
-	{
+
+	public void excluir(Cliente cliente) throws SQLException {
 		StringBuilder sql = new StringBuilder();
 		sql.append("DELETE FROM cliente ");
 		sql.append("WHERE codigo = ? ");
-		
+
 		Connection conexao = ConexaoFactory.conectar();
-		
-		PreparedStatement comando = conexao.prepareStatement( sql.toString() );
+
+		PreparedStatement comando = conexao.prepareStatement(sql.toString());
 		comando.setLong(1, cliente.getCodigo());
-		
+
 		comando.executeUpdate();
 	}
-	
-	public void editar(Cliente cliente ) throws SQLException
-	{
+
+	public void editar(Cliente cliente) throws SQLException {
 		StringBuilder sql = new StringBuilder();
-		sql.append( "UPDATE cliente ");
+		sql.append("UPDATE cliente ");
 		sql.append("SET razao_social = ?, cnpj = ? ");
 		sql.append("WHERE codigo = ? ");
-		
-Connection conexao = ConexaoFactory.conectar();
-		
-		PreparedStatement comando = conexao.prepareStatement( sql.toString() );
+
+		Connection conexao = ConexaoFactory.conectar();
+
+		PreparedStatement comando = conexao.prepareStatement(sql.toString());
 		comando.setString(1, cliente.getRazaoSocial());
 		comando.setString(2, cliente.getCnpj());
 		comando.setLong(3, cliente.getCodigo());
-		
+
 		comando.executeUpdate();
 	}
 	
+	public Cliente buscarPorCodigo(Cliente cliente) throws SQLException{
+		StringBuilder sql = new StringBuilder();
+		sql.append("SELECT codigo, razao_social, cnpj ");
+		sql.append("FROM cliente ");
+		sql.append( "WHERE codigo = ? ");
+		
+		Connection conexao = ConexaoFactory.conectar();
+
+		PreparedStatement comando = conexao.prepareStatement(sql.toString());
+		comando.setLong(1, cliente.getCodigo());
+
+		ResultSet resultado = comando.executeQuery();
+		
+		Cliente retorno = null;
+		
+		if( resultado.next() ){
+			retorno = new Cliente();
+			retorno.setCodigo( resultado.getLong("codigo"));
+			retorno.setRazaoSocial(resultado.getString("razao_social"));
+			retorno.setCnpj(resultado.getString("cnpj"));
+		}
+		
+		return retorno;
+	}
+	/*
 	public static void main(String[] args )
 	{
-		/*****
-		Cliente cliente = new Cliente();
-		cliente.setRazaoSocial("Globo SA");
-		cliente.setCnpj("11111111111");
-		
-		Cliente cliente2 = new Cliente();
-		cliente2.setRazaoSocial("Arcom Distribuidora");
-		cliente2.setCnpj("1232343");
+		Cliente c1 = new Cliente();
+		Cliente c2 = new Cliente();
+		c1.setCodigo(1L);
+		c2.setCodigo(5L);
 		
 		ClienteDAO cDAO = new ClienteDAO();
+		
 		try {
-			cDAO.salvar(cliente);
-			cDAO.salvar(cliente2);
+			Cliente r1 = cDAO.buscarPorCodigo(c1);
+			Cliente r2 = cDAO.buscarPorCodigo(c2);
 			System.out.println("Deu certo");
+			
+			System.out.println("result 1: " + r1 );
+			System.out.println("result 1: " + r2 );
+
 		} catch (SQLException e) {
 			e.printStackTrace();
-			System.out.println("Deu errado");
+			System.out.println("Nao deu certo");
 		}
 	}*/
-	
-		/*
-		Cliente c1 = new Cliente();
-		c1.setCodigo( 2L);
-		
-		ClienteDAO cDAO = new ClienteDAO();
-		try {
-			cDAO.excluir(c1);
-			System.out.println("Deu certo");
-		} catch (SQLException e) {
-			e.printStackTrace();
-			System.out.println("Deu errado");
-		}*/
-		
-		Cliente c1 = new Cliente();
-		c1.setCodigo(3L);
-		c1.setRazaoSocial("Arcon Distribuidora");
-		c1.setCnpj("123234355");
-		
-		ClienteDAO cDAO = new ClienteDAO();
-		try {
-			cDAO.editar(c1);
-			System.out.println("Deu certo");
-		} catch (SQLException e) {
-			e.printStackTrace();
-			System.out.println("Deu errado");
-		}
-} 
 }
