@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import br.com.redesprou.domain.Cliente;
 import br.com.redesprou.factory.ConexaoFactory;
@@ -77,9 +78,36 @@ public class ClienteDAO {
 		
 		return retorno;
 	}
-	/*
+	
+	public ArrayList<Cliente> listar() throws SQLException{
+		StringBuilder sql = new StringBuilder();
+		sql.append("SELECT codigo, razao_social, cnpj ");
+		sql.append( "FROM cliente " );
+		sql.append("ORDER BY codigo ASC ");
+		
+		Connection conexao = ConexaoFactory.conectar();
+
+		PreparedStatement comando = conexao.prepareStatement(sql.toString());
+		ResultSet resultado = comando.executeQuery();
+		
+		ArrayList<Cliente> lista = new ArrayList<Cliente>();
+		
+		while(resultado.next() )
+		{
+			Cliente c1 = new Cliente();
+			c1.setCodigo( resultado.getLong("codigo"));
+			c1.setRazaoSocial(resultado.getString("razao_social"));
+			c1.setCnpj(resultado.getString("cnpj"));
+			
+			lista.add(c1);
+		}
+		
+		return lista;
+	}
+	
 	public static void main(String[] args )
 	{
+		/*
 		Cliente c1 = new Cliente();
 		Cliente c2 = new Cliente();
 		c1.setCodigo(1L);
@@ -98,6 +126,19 @@ public class ClienteDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println("Nao deu certo");
+		}*/
+		
+		ClienteDAO cDAO = new ClienteDAO();
+		try {
+			ArrayList<Cliente> lista = cDAO.listar();
+			
+			for (Cliente c : lista )
+			{
+				System.out.println(c);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("Erro");
 		}
-	}*/
+	}
 }
