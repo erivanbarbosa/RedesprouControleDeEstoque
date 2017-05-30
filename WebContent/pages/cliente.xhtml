@@ -13,10 +13,11 @@
 
 	<ui:define name="conteudo">
 		<h:form id="frmClienteListagem">
-			<p:dataTable id="tblClientes"
+			<p:dataTable id="tblClientes" widgetVar="tabelaClientes"
 				emptyMessage="Nenhum cliente encontrado!"
-				value="#{MBCliente.listaDeClientes}" var="item" paginator="true"
-				rows="10">
+				value="#{MBCliente.listaDeClientes}"
+				filteredValue="#{MBCliente.listaFiltrada}" var="item"
+				paginator="true" rows="10">
 
 				<f:facet name="header">
 					Clientes - Listagem
@@ -39,14 +40,19 @@
 
 				<p:column headerText="Opções">
 					<p:commandButton icon="ui-icon-trash"
-						actionListener="#{MBCliente.prepararExcluir}"
-						oncomplete="PF('dlgClienteExcluir).show();"
-						update=":frmClienteExcluir:pnlClienteExcluir" 
-						actionListener="#{MBCliente.prepararEditar}"
+						oncomplete="PF('dlgClienteExcluir').show();"
+						update=":frmClienteExcluir:pnlClienteExcluir">
+						<f:setPropertyActionListener target="#{MBCliente.cliente}" value="#{item}" />
+					</p:commandButton>
+
+					<p:commandButton icon="ui-icon-pencil"
 						oncomplete="PF('dlgClienteEditar').show();"
-						update=":frmClienteEditar:pnlClienteEditar" />
-						
-						<p:commandButton icon="ui-icon-pencil" />
+						update=":frmClienteEditar:pnlClienteEditar">
+						<f:setPropertyActionListener target="#{MBCliente.cliente}"
+							value="#{item}" />
+					</p:commandButton>
+
+
 				</p:column>
 
 				<f:facet name="footer">
@@ -76,8 +82,8 @@
 
 				<h:panelGrid columns="2">
 					<p:commandButton value="Gravar" actionListener="#{MBCliente.novo}"
-						oncomplete="PF('dlgClienteNovo').hide();"
-						update=":frmClienteListagem:tblClientes" :msgGlobal />
+						oncomplete="PF('dlgClienteNovo').hide(); tabelaClientes.clearFilters();"
+						update=":frmClienteListagem:tblClientes :msgGlobal" />
 					<p:commandButton value="Cancelar"
 						onclick="PF('dlgClienteNovo').hide();" />
 				</h:panelGrid>
@@ -88,7 +94,7 @@
 			draggable="false" resizable="false" modal="true" appendTo="@(body)"
 			header="Excluir Cliente">
 			<h:form id="frmClienteExcluir">
-				<p:panelGrid "pnlClienteExcluir" columns="2">
+				<p:panelGrid id="pnlClienteExcluir" columns="2">
 					<h:outputLabel value="Código" />
 					<h:outputText value="#{MBCliente.cliente.codigo}" />
 
@@ -102,7 +108,7 @@
 				<h:panelGrid columns="2">
 					<p:commandButton value="Excluir"
 						actionListener="#{MBCliente.excluir}"
-						oncomplete="PF('dlgClienteExcluir').hide();"
+						oncomplete="PF('dlgClienteExcluir').hide(); tabelaClientes.clearFilters();"
 						update=":frmClienteListagem:tblClientes :msgGlobal" />
 
 					<p:commandButton value="Cancelar"
@@ -110,35 +116,36 @@
 				</h:panelGrid>
 			</h:form>
 		</p:dialog>
-		
+
 		<p:dialog widgetVar="dlgClienteEditar" closable="false"
- 			draggable="false" resizable="false" modal="true" appendTo="@(body)"
- 			header="Editar Cliente">
- 			<h:form id="frmClienteEditar">
- 				<h:panelGrid id="pnlClienteEditar" columns="2">
- 					<p:outputLabel value="Código" />
- 					<h:outputText value="#{MBCliente.cliente.codigo}" />
- 
- 					<p:outputLabel value="Razão Social" />
- 					<h:inputText value="#{MBCliente.cliente.razaoSocial}" size="20"
- 						maxlength="50" />
- 
- 					<p:outputLabel value="CNPJ" />
- 					<h:inputText value="#{MBCliente.cliente.cnpj}" size="20"
- 						maxlength="20" />
- 				</h:panelGrid>
- 
- 				<h:panelGrid columns="2">
- 					<p:commandButton value="Editar"
- 						actionListener="#{MBCliente.editar}"
- 						oncomplete="PF('dlgClienteEditar').hide();"
- 						update=":frmClienteListagem:tblClientes :msgGlobal" />
- 					<p:commandButton value="Cancelar" onclick="PF('dlgClienteEditar').hide();"/>
- 				</h:panelGrid>
- 			</h:form>
- 
- 
- 		</p:dialog>
+			draggable="false" resizable="false" modal="true" appendTo="@(body)"
+			header="Editar Cliente">
+			<h:form id="frmClienteEditar">
+				<h:panelGrid id="pnlClienteEditar" columns="2">
+					<p:outputLabel value="Código" />
+					<h:outputText value="#{MBCliente.cliente.codigo}" />
+
+					<p:outputLabel value="Razão Social" />
+					<h:inputText value="#{MBCliente.cliente.razaoSocial}" size="20"
+						maxlength="50" />
+
+					<p:outputLabel value="CNPJ" />
+					<h:inputText value="#{MBCliente.cliente.cnpj}" size="20"
+						maxlength="20" />
+				</h:panelGrid>
+
+				<h:panelGrid columns="2">
+					<p:commandButton value="Editar"
+						actionListener="#{MBCliente.editar}"
+						oncomplete="PF('dlgClienteEditar').hide(); tabelaClientes.clearFilters();"
+						update=":frmClienteListagem:tblClientes :msgGlobal" />
+					<p:commandButton value="Cancelar"
+						onclick="PF('dlgClienteEditar').hide();" />
+				</h:panelGrid>
+			</h:form>
+
+
+		</p:dialog>
 
 	</ui:define>
 </ui:composition>
