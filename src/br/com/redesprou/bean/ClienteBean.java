@@ -10,6 +10,7 @@ import javax.faces.model.ListDataModel;
 
 import br.com.redesprou.dao.ClienteDAO;
 import br.com.redesprou.domain.Cliente;
+import br.com.redesprou.util.JSFUtil;
 
 @ManagedBean(name = "MBCliente")
 @ViewScoped
@@ -41,6 +42,7 @@ public class ClienteBean {
 			listaDeClientes = new ListDataModel<Cliente>(lista);
 		} catch (SQLException e) {
 			e.printStackTrace();
+			JSFUtil.adicionarMensagemErro(e.getMessage());
 		}
 	}
 
@@ -52,11 +54,13 @@ public class ClienteBean {
 		try {
 			ClienteDAO dao = new ClienteDAO();
 			dao.salvar(cliente);
+			JSFUtil.adicionarMensagemSucesso("Cliente Adicionado Com Sucesso");
 			
 			ArrayList<Cliente> lista = dao.listar();
 			listaDeClientes = new ListDataModel<Cliente>(lista);
 		} catch (SQLException e) {
 			e.printStackTrace();
+			JSFUtil.adicionarMensagemErro(e.getMessage());
 		}
 	}
 }
