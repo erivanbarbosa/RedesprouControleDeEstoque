@@ -46,18 +46,56 @@ public class ClienteBean {
 		}
 	}
 
-	public void prepararNovo(){
+	public void prepararNovo() {
 		cliente = new Cliente();
 	}
-	
+
 	public void novo() {
 		try {
 			ClienteDAO dao = new ClienteDAO();
 			dao.salvar(cliente);
 			JSFUtil.adicionarMensagemSucesso("Cliente Adicionado Com Sucesso");
-			
+
 			ArrayList<Cliente> lista = dao.listar();
 			listaDeClientes = new ListDataModel<Cliente>(lista);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			JSFUtil.adicionarMensagemErro(e.getMessage());
+		}
+	}
+
+	public void prepararExcluir() {
+		cliente = listaDeClientes.getRowData();
+	}
+
+	public void excluir() {
+		try {
+			ClienteDAO dao = new ClienteDAO();
+			dao.excluir(cliente);
+
+			ArrayList<Cliente> lista = dao.listar();
+			listaDeClientes = new ListDataModel<Cliente>(lista);
+
+			JSFUtil.adicionarMensagemSucesso("Cliente Excluido com Sucesso");
+		} catch (SQLException e) {
+			e.printStackTrace();
+			JSFUtil.adicionarMensagemErro(e.getMessage());
+		}
+	}
+
+	public void prepararEditar() {
+		cliente = listaDeClientes.getRowData();
+	}
+
+	public void editar() {
+		try {
+			ClienteDAO dao = new ClienteDAO();
+			dao.editar(cliente);
+
+			ArrayList<Cliente> lista = dao.listar();
+			listaDeClientes = new ListDataModel<Cliente>(lista);
+
+			JSFUtil.adicionarMensagemSucesso("Cliente Editado com Sucesso");
 		} catch (SQLException e) {
 			e.printStackTrace();
 			JSFUtil.adicionarMensagemErro(e.getMessage());
