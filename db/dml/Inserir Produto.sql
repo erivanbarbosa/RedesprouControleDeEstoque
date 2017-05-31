@@ -1,0 +1,14 @@
+INSERT INTO `controle_de_estoque`.`produto` (`descricao`, `preco`, `quantidade`, `fornecedor_codigo`) VALUES ('Novalgina 100g', '2.56', '10', '1');
+INSERT INTO `controle_de_estoque`.`produto` (`descricao`, `preco`, `quantidade`, `fornecedor_codigo`) VALUES ('Itaipava 350ml', '2.00', '10', '1');
+INSERT INTO `controle_de_estoque`.`produto` (`descricao`, `preco`, `quantidade`, `fornecedor_codigo`) VALUES ('Biscoito Badeirantes', '4.99', '10', '1');
+INSERT INTO `controle_de_estoque`.`produto` (`descricao`, `preco`, `quantidade`, `fornecedor_codigo`) VALUES ('Paçoca Moreninha do Rio', '0.50', '10', '1');
+INSERT INTO `controle_de_estoque`.`produto` (`descricao`, `preco`, `quantidade`, `fornecedor_codigo`) VALUES ('Molho de Tomata Nâo Quero', '0.99', '10', '1');
+INSERT INTO `controle_de_estoque`.`produto` (`descricao`, `preco`, `quantidade`, `fornecedor_codigo`) VALUES ('IpiOkey 500 ml', '0.99', '10', '1');
+INSERT INTO `controle_de_estoque`.`produto` (`descricao`, `preco`, `quantidade`, `fornecedor_codigo`) VALUES ('Arroz Diamante', '2.00', '10', '1');
+INSERT INTO `controle_de_estoque`.`produto` (`descricao`, `preco`, `quantidade`, `fornecedor_codigo`) VALUES ('Feijão Baronesa', '5.00', '10', '1');
+INSERT INTO `controle_de_estoque`.`produto` (`descricao`, `preco`, `quantidade`, `fornecedor_codigo`) VALUES ('Açucar Salgadella', '5.00', '10', '1');
+INSERT INTO `controle_de_estoque`.`produto` (`descricao`, `preco`, `quantidade`, `fornecedor_codigo`) VALUES ('Café Moinho Grosso', '7.00', '10', '1');
+INSERT INTO `controle_de_estoque`.`produto` (`descricao`, `preco`, `quantidade`, `fornecedor_codigo`) VALUES ('Espingarda Laporte', '0.56', '10', '1');
+INSERT INTO `controle_de_estoque`.`produto` (`descricao`, `preco`, `quantidade`, `fornecedor_codigo`) VALUES ('CD-R 40 Anos', '2.56', '10', '1');
+INSERT INTO `controle_de_estoque`.`produto` (`descricao`, `preco`, `quantidade`, `fornecedor_codigo`) VALUES ('Esquincariou 600 ml', '2.56', '10', '1');
+INSERT INTO `controle_de_estoque`.`produto` (`descricao`, `preco`, `quantidade`, `fornecedor_codigo`) VALUES ('Creme Dental OralC', '2.56', '10', '1');
