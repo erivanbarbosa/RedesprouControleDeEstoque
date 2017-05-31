@@ -32,6 +32,7 @@ public class ProdutoDAOTest {
 	}
 	
 	@Test
+	@org.junit.Ignore
 	public void listar() throws SQLException {
 		ProdutoDAO dao = new ProdutoDAO();
 		ArrayList<Produto> lista = dao.listar();
@@ -46,6 +47,22 @@ public class ProdutoDAOTest {
 			System.out.println("CNPJ do fornecedor: " + p.getFornecedor().getCnpj());
 			System.out.println();
 		}
+	}
+	
+	@Test
+	public void excluir() throws SQLException {
+		Fornecedor fornecedor = new Fornecedor();
+		fornecedor.setCodigo(1L);
+		
+		Produto produto = new Produto();
+		produto.setCodigo(3L);
+		produto.setDescricao( "Doralgina 100g");
+		produto.setQuantidade(10L);
+		produto.setPreco(2.56);
+		produto.setFornecedor(fornecedor);
+		
+		ProdutoDAO dao = new ProdutoDAO();
+		dao.excluir(produto);
 	}
 
 }
