@@ -88,4 +88,18 @@ public class ProdutoBean {
 			JSFUtil.adicionarMensagemErro(e.getMessage());
 		}
 	}
+	
+	public void excluir() {
+		try {
+			ProdutoDAO dao = new ProdutoDAO();
+			
+			dao.excluir(produto);
+			
+			listaDeProdutos = dao.listar();
+			JSFUtil.adicionarMensagemSucesso("Produo Excluido com Sucesso");
+		} catch(SQLException e ) {
+			e.printStackTrace();
+			JSFUtil.adicionarMensagemErro( e.getMessage() );
+		}
+	}
 }
