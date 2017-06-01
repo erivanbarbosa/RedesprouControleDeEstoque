@@ -48,8 +48,41 @@
 					sortBy="#{item.fornecedor.razaoSocial}">
 					<h:outputText value="#{item.fornecedor.razaoSocial}" />
 				</p:column>
+				
+				<f:facet name="footer">
+					<p:commandButton value="Novo"
+						actionListener="#{MBProduto.prepararNovo}"
+						oncomplete="PF('dlgProdutoNovo').show();"
+						update=":frmProdutoNovo:pnlProdutoNovo">
+
+					</p:commandButton>
+				</f:facet>
 			</p:dataTable>
 		</h:form>
+		
+		<p:dialog widgetVar="dlgProdutoNovo" closable="false"
+			draggable="false" resizable="false" modal="true" appendTo="@(body)"
+			header="Novo Produto"> 
+				<h:form id="frmProdutoNovo">
+					<h:panelGrid columns="2" id="pnlProdutoNovo">
+						<p:outputLabel value="Descrição" />
+						<p:inputText value="#{MBProduto.produto.descricao}" size="20" maxlength="50" />
+						
+						<p:outputLabel value="Preço" />
+						<p:inputText value="#{MBProduto.produto.preco}" size="20" maxlength="50" />
+						
+						<p:outputLabel value="Quantidade" />
+						<p:inputText value="#{MBProduto.produto.quantidade}" size="20" maxlength="50" />
+					</h:panelGrid>
+					
+					<h:panelGrid>
+						<p:commandButton value="Gravar" />
+						<p:commandButton value="Cancelar" oncomplete="PF('dlgProdutoNovo').hide();"/>
+					</h:panelGrid>
+					
+					
+				</h:form>
+		</p:dialog>
 	</ui:define>
 
 </ui:composition>
