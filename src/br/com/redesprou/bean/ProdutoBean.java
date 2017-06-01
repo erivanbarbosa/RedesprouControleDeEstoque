@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
+import br.com.redesprou.dao.FornecedorDAO;
 import br.com.redesprou.dao.ProdutoDAO;
 import br.com.redesprou.domain.Fornecedor;
 import br.com.redesprou.domain.Produto;
@@ -56,6 +57,20 @@ public class ProdutoBean {
 			ProdutoDAO dao = new ProdutoDAO();
 			listaDeProdutos = dao.listar();
 		} catch (SQLException e) {
+			e.printStackTrace();
+			JSFUtil.adicionarMensagemErro(e.getMessage());
+		}
+	}
+	
+	public void prepararNovo()
+	{
+		try {
+		produto = new Produto();
+		
+		FornecedorDAO dao = new FornecedorDAO();
+		
+		comboFornecedores = dao.listar();
+		} catch( SQLException e ) {
 			e.printStackTrace();
 			JSFUtil.adicionarMensagemErro(e.getMessage());
 		}
