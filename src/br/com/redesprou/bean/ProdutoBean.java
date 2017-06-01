@@ -61,16 +61,29 @@ public class ProdutoBean {
 			JSFUtil.adicionarMensagemErro(e.getMessage());
 		}
 	}
-	
-	public void prepararNovo()
-	{
+
+	public void prepararNovo() {
 		try {
-		produto = new Produto();
-		
-		FornecedorDAO dao = new FornecedorDAO();
-		
-		comboFornecedores = dao.listar();
-		} catch( SQLException e ) {
+			produto = new Produto();
+
+			FornecedorDAO dao = new FornecedorDAO();
+
+			comboFornecedores = dao.listar();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			JSFUtil.adicionarMensagemErro(e.getMessage());
+		}
+	}
+
+	public void novo() {
+		try {
+			ProdutoDAO dao = new ProdutoDAO();
+
+			dao.salvar(produto);
+			JSFUtil.adicionarMensagemSucesso("Produto Gravado com Sucesso!");
+
+			listaDeProdutos = dao.listar();
+		} catch (Exception e) {
 			e.printStackTrace();
 			JSFUtil.adicionarMensagemErro(e.getMessage());
 		}
