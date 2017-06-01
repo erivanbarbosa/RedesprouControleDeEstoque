@@ -7,6 +7,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
 import br.com.redesprou.dao.ProdutoDAO;
+import br.com.redesprou.domain.Fornecedor;
 import br.com.redesprou.domain.Produto;
 import br.com.redesprou.util.JSFUtil;
 
@@ -15,6 +16,24 @@ import br.com.redesprou.util.JSFUtil;
 public class ProdutoBean {
 	private ArrayList<Produto> listaDeProdutos;
 	private ArrayList<Produto> listaFiltrada;
+	private Produto produto;
+	private ArrayList<Fornecedor> comboFornecedores;
+
+	public Produto getProduto() {
+		return produto;
+	}
+
+	public void setProduto(Produto produto) {
+		this.produto = produto;
+	}
+
+	public ArrayList<Fornecedor> getComboFornecedores() {
+		return comboFornecedores;
+	}
+
+	public void setComboFornecedores(ArrayList<Fornecedor> comboFornecedores) {
+		this.comboFornecedores = comboFornecedores;
+	}
 
 	public ArrayList<Produto> getListaFiltrada() {
 		return listaFiltrada;
