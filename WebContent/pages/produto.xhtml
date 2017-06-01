@@ -13,8 +13,8 @@
 
 	<ui:define name="conteudo">
 		<f:event listener="#{MBProduto.prepararListagem}" type="preRenderView" />
-		<h:form id="frmProdutosListagem">
-			<p:dataTable id="tblProdutosListagem"
+		<h:form id="frmProdutoListagem">
+			<p:dataTable id="tblProdutoListagem" widgetVar="tabelaProdutoListagem"
 				value="#{MBProduto.listaDeProdutos}" var="item"
 				emptyMessage="Nenhum Produto Encontrado" paginator="true" rows="10"
 				filteredValue="#{MBProduto.listaFiltrada}">
@@ -48,7 +48,7 @@
 					sortBy="#{item.fornecedor.razaoSocial}">
 					<h:outputText value="#{item.fornecedor.razaoSocial}" />
 				</p:column>
-				
+
 				<f:facet name="footer">
 					<p:commandButton value="Novo"
 						actionListener="#{MBProduto.prepararNovo}"
@@ -59,37 +59,43 @@
 				</f:facet>
 			</p:dataTable>
 		</h:form>
-		
+
 		<p:dialog widgetVar="dlgProdutoNovo" closable="false"
 			draggable="false" resizable="false" modal="true" appendTo="@(body)"
-			header="Novo Produto"> 
-				<h:form id="frmProdutoNovo">
-					<h:panelGrid columns="2" id="pnlProdutoNovo">
-						<p:outputLabel value="Descrição" />
-						<p:inputText value="#{MBProduto.produto.descricao}" size="20" maxlength="50" />
-						
-						<p:outputLabel value="Preço" />
-						<p:inputText value="#{MBProduto.produto.preco}" size="20" maxlength="50" />
-						
-						<p:outputLabel value="Quantidade" />
-						<p:inputText value="#{MBProduto.produto.quantidade}" size="20" maxlength="50" />
-						
-						<p:outputLabel value="Fornecedor" />
-						<p:selectOneMenu value="#{MBProduto.produto.fornecedor.codigo}"> 
-							<f:selectItem itemValue="" itemLabel="Selecione um Fabricante"/>
-							<f:selectItems value="#{MBProduto.comboFornecedores}" var="item" 
+			header="Novo Produto">
+			<h:form id="frmProdutoNovo">
+				<h:panelGrid columns="2" id="pnlProdutoNovo">
+					<p:outputLabel value="Descrição" />
+					<p:inputText value="#{MBProduto.produto.descricao}" size="20"
+						maxlength="50" />
+
+					<p:outputLabel value="Preço" />
+					<p:inputText value="#{MBProduto.produto.preco}" size="20"
+						maxlength="50" />
+
+					<p:outputLabel value="Quantidade" />
+					<p:inputText value="#{MBProduto.produto.quantidade}" size="20"
+						maxlength="50" />
+
+					<p:outputLabel value="Fornecedor" />
+					<p:selectOneMenu value="#{MBProduto.produto.fornecedor.codigo}" filter="true">
+						<f:selectItem itemValue="" itemLabel="Selecione um Fabricante" />
+						<f:selectItems value="#{MBProduto.comboFornecedores}" var="item"
 							itemValue="#{item.codigo}" itemLabel="#{item.razaoSocial}" />
-							
-						</p:selectOneMenu>
-					</h:panelGrid>
-					
-					<h:panelGrid>
-						<p:commandButton value="Gravar" />
-						<p:commandButton value="Cancelar" oncomplete="PF('dlgProdutoNovo').hide();"/>
-					</h:panelGrid>
-					
-					
-				</h:form>
+
+					</p:selectOneMenu>
+				</h:panelGrid>
+
+				<h:panelGrid>
+					<p:commandButton value="Gravar" actionListener="#{MBProduto.novo}"
+						update=":frmProdutoListagem:tblProdutoListagem :msgGlobal"
+						oncomplete="PF('dlgProdutoNovo').hide(); tabelaProdutoListagem.clearFilters();"  />
+					<p:commandButton value="Cancelar"
+						oncomplete="PF('dlgProdutoNovo').hide();" />
+				</h:panelGrid>
+
+
+			</h:form>
 		</p:dialog>
 	</ui:define>
 
