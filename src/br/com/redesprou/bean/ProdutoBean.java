@@ -14,6 +14,15 @@ import br.com.redesprou.util.JSFUtil;
 @ViewScoped
 public class ProdutoBean {
 	private ArrayList<Produto> listaDeProdutos;
+	private ArrayList<Produto> listaFiltrada;
+
+	public ArrayList<Produto> getListaFiltrada() {
+		return listaFiltrada;
+	}
+
+	public void setListaFiltrada(ArrayList<Produto> listaFiltrada) {
+		this.listaFiltrada = listaFiltrada;
+	}
 
 	public ArrayList<Produto> getListaDeProdutos() {
 		return listaDeProdutos;
