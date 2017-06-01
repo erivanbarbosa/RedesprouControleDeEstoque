@@ -16,53 +16,73 @@ import br.com.redesprou.domain.Produto;
 public class ProdutoDAOTest {
 
 	@Test
-	@Ignore
+	@org.junit.Ignore
 	public void salvar() throws SQLException {
 		Produto p = new Produto();
 		Fornecedor f = new Fornecedor();
-		f.setCodigo( 1L );
-		
+		f.setCodigo(1L);
+
 		p.setDescricao("novalgina 10 comprimidos");
 		p.setPreco(2.45);
 		p.setQuantidade(13L);
 		p.setFornecedor(f);
-		
+
 		ProdutoDAO dao = new ProdutoDAO();
-		//dao.salvar(p);
+		// dao.salvar(p);
 	}
-	
+
 	@Test
 	@org.junit.Ignore
 	public void listar() throws SQLException {
 		ProdutoDAO dao = new ProdutoDAO();
 		ArrayList<Produto> lista = dao.listar();
-		
-		for(Produto p : lista ){
-			System.out.println("Codigo do produto: " + p.getCodigo() );
+
+		for (Produto p : lista) {
+			System.out.println("Codigo do produto: " + p.getCodigo());
 			System.out.println("Descrição do produto: " + p.getDescricao());
 			System.out.println("Preço do produto: " + p.getPreco());
 			System.out.println("Quantidade do produto: " + p.getQuantidade());
-			System.out.println("Codigo do fornecedor " + p.getFornecedor().getCodigo() );
-			System.out.println("Razao Social do fornecedor: " + p.getFornecedor().getRazaoSocial());
-			System.out.println("CNPJ do fornecedor: " + p.getFornecedor().getCnpj());
+			System.out.println("Codigo do fornecedor "
+					+ p.getFornecedor().getCodigo());
+			System.out.println("Razao Social do fornecedor: "
+					+ p.getFornecedor().getRazaoSocial());
+			System.out.println("CNPJ do fornecedor: "
+					+ p.getFornecedor().getCnpj());
 			System.out.println();
 		}
 	}
-	
+
 	@Test
+	@org.junit.Ignore
 	public void excluir() throws SQLException {
 		Fornecedor fornecedor = new Fornecedor();
 		fornecedor.setCodigo(1L);
-		
+
 		Produto produto = new Produto();
 		produto.setCodigo(3L);
-		produto.setDescricao( "Doralgina 100g");
+		produto.setDescricao("Doralgina 100g");
 		produto.setQuantidade(10L);
 		produto.setPreco(2.56);
 		produto.setFornecedor(fornecedor);
-		
+
 		ProdutoDAO dao = new ProdutoDAO();
 		dao.excluir(produto);
+	}
+
+	@Test
+	public void editar() throws SQLException {
+		Fornecedor fornecedor = new Fornecedor();
+		fornecedor.setCodigo(1L);
+
+		Produto produto = new Produto();
+		produto.setCodigo(3L);
+		produto.setDescricao("Doralgina 200g");
+		produto.setQuantidade(10L);
+		produto.setPreco(2.56);
+		produto.setFornecedor(fornecedor);
+
+		ProdutoDAO dao = new ProdutoDAO();
+		dao.editar(produto);
 	}
 
 }
