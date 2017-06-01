@@ -48,6 +48,17 @@
 					sortBy="#{item.fornecedor.razaoSocial}">
 					<h:outputText value="#{item.fornecedor.razaoSocial}" />
 				</p:column>
+				
+				<p:column headerText="Opções">
+					<p:commandButton icon="ui-icon-trash"
+						oncomplete="PF('dlgProdutoExcluir').show();"
+						update=":frmProdutoExcluir:pnlProdutoExcluir">
+						<f:setPropertyActionListener target="#{MBProduto.produto}" value="#{item}" />
+					</p:commandButton>
+
+					<p:commandButton icon="ui-icon-pencil" />
+
+				</p:column>
 
 				<f:facet name="footer">
 					<p:commandButton value="Novo"
@@ -92,6 +103,45 @@
 						oncomplete="PF('dlgProdutoNovo').hide(); tabelaProdutoListagem.clearFilters();"  />
 					<p:commandButton value="Cancelar"
 						oncomplete="PF('dlgProdutoNovo').hide();" />
+				</h:panelGrid>
+
+
+			</h:form>
+		</p:dialog>
+		
+		<p:dialog widgetVar="dlgProdutoExcluir" closable="false"
+			draggable="false" resizable="false" modal="true" appendTo="@(body)"
+			header="Excluir Produto">
+			<h:form id="frmProdutoExcluir">
+				<h:panelGrid columns="2" id="pnlProdutoExcluir">
+					<p:outputLabel value="Código" />
+					<h:outputText value="#{MBProduto.produto.codigo}" size="20"
+						maxlength="50" />
+					
+					<p:outputLabel value="Descrição" />
+					<h:outputText value="#{MBProduto.produto.descricao}" size="20"
+						maxlength="50" />
+
+					<p:outputLabel value="Preço" />
+					<h:outputText value="#{MBProduto.produto.preco}" size="20"
+						maxlength="50" />
+
+					<p:outputLabel value="Quantidade" />
+					<h:outputText value="#{MBProduto.produto.quantidade}" size="20"
+						maxlength="50" />
+
+					<p:outputLabel value="Fornecedor" />
+					<h:outputText value="#{MBProduto.produto.fornecedor.razaoSocial}" size="20"
+						maxlength="50" />
+
+				</h:panelGrid>
+
+				<h:panelGrid columns="2">
+					<p:commandButton value="Excluir" actionListener="#{MBProduto.excluir}"
+					update=":frmProdutoListagem:tblProdutoListagem :msgGlobal" 
+					oncomplete="PF('dlgProdutoExcluir').hide(); tabelaProdutoListagem.clearFilters();" />
+					
+					<p:commandButton value="Cancelar" oncomplete="PF('dlgProdutoExcluir').hide();" />
 				</h:panelGrid>
 
 
