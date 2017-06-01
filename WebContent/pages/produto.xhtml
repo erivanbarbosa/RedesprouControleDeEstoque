@@ -12,33 +12,40 @@
 	</ui:define>
 
 	<ui:define name="conteudo">
-			<f:event listener="#{MBProduto.prepararListagem}" type="preRenderView" />
+		<f:event listener="#{MBProduto.prepararListagem}" type="preRenderView" />
 		<h:form id="frmProdutosListagem">
 			<p:dataTable id="tblProdutosListagem"
 				value="#{MBProduto.listaDeProdutos}" var="item"
-				emptyMessage="Nenhum Produto Encontrado" paginator="true" rows="10">
-				
+				emptyMessage="Nenhum Produto Encontrado" paginator="true" rows="10"
+				filteredValue="#{MBProduto.listaFiltrada}">
+
 				<f:facet name="header">
 					<h:outputText value="Produto - Listagem" />
 				</f:facet>
-				
-				<p:column headerText="Código">
+
+				<p:column headerText="Código" filterBy="#{item.codigo}"
+					sortBy="#{item.codigo}">
 					<h:outputText value="#{item.codigo}" />
 				</p:column>
-				
-				<p:column headerText="Descrição">
+
+				<p:column headerText="Descrição" filterBy="#{item.descricao}"
+					sortBy="#{item.descricao}">
 					<h:outputText value="#{item.descricao}" />
 				</p:column>
-				
-				<p:column headerText="Preço">
+
+				<p:column headerText="Preço" filterBy="#{item.preco}"
+					sortBy="#{item.preco}">
 					<h:outputText value="#{item.preco}" />
 				</p:column>
-				
-				<p:column headerText="Quantidade">
+
+				<p:column headerText="Quantidade" filterBy="#{item.quantidade}"
+					sortBy="#{item.quantidade}">
 					<h:outputText value="#{item.quantidade}" />
 				</p:column>
-				
-				<p:column headerText="Fornecedor">
+
+				<p:column headerText="Fornecedor"
+					filterBy="#{item.fornecedor.razaoSocial}"
+					sortBy="#{item.fornecedor.razaoSocial}">
 					<h:outputText value="#{item.fornecedor.razaoSocial}" />
 				</p:column>
 			</p:dataTable>
