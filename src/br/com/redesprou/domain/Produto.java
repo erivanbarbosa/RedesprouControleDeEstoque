@@ -5,7 +5,7 @@ public class Produto {
 	private String descricao;
 	private Double preco;
 	private Long quantidade;
-	private Fornecedor fornecedor;
+	private Fornecedor fornecedor = new Fornecedor();
 
 	public Long getCodigo() {
 		return codigo;
