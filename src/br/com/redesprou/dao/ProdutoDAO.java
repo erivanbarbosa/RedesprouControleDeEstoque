@@ -86,8 +86,9 @@ public class ProdutoDAO {
 		comando.setDouble(2, p.getPreco());
 		comando.setLong(3, p.getQuantidade());
 		comando.setLong(4, p.getFornecedor().getCodigo());
+		comando.setLong(5, p.getCodigo());
 		
-		comando.executeLargeUpdate();
+		comando.executeUpdate();
 	}
 
 }
