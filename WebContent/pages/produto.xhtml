@@ -53,7 +53,7 @@
 					<p:commandButton value="Novo"
 						actionListener="#{MBProduto.prepararNovo}"
 						oncomplete="PF('dlgProdutoNovo').show();"
-						update=":frmProdutoNovo:pnlProdutoNovo">
+						update=":frmProdutoNovo:pnlProdutoNovo :msgGlobal">
 
 					</p:commandButton>
 				</f:facet>
@@ -73,6 +73,14 @@
 						
 						<p:outputLabel value="Quantidade" />
 						<p:inputText value="#{MBProduto.produto.quantidade}" size="20" maxlength="50" />
+						
+						<p:outputLabel value="Fornecedor" />
+						<p:selectOneMenu value="#{MBProduto.produto.fornecedor.codigo}"> 
+							<f:selectItem itemValue="" itemLabel="Selecione um Fabricante"/>
+							<f:selectItems value="#{MBProduto.comboFornecedores}" var="item" 
+							itemValue="#{item.codigo}" itemLabel="#{item.razaoSocial}" />
+							
+						</p:selectOneMenu>
 					</h:panelGrid>
 					
 					<h:panelGrid>
